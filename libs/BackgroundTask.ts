@@ -9,20 +9,21 @@ const INTERVAL = 10
 //   console.log('task function is running');
 //   return;
 // }
-var background_exec_count = 0
+var background_exec_count = 0;
+TaskManager.defineTask(FETCH_TASKNAME, () => {
+  try {
+    var ts = Math. round((new Date()). getTime() / 1000);
+    console.log(`backgroundTask():[${Platform.OS}][${ts}][${background_exec_count}] task function is running....`)
+    background_exec_count += 1;
+    const receivedNewData = true;// do your background fetch here
+    return receivedNewData ? BackgroundFetch.Result.NewData : BackgroundFetch.Result.NoData;
+  } catch (error) {
+    console.log("backgroundTask():ask function run error:",error);
+    return BackgroundFetch.Result.Failed;
+  }
+});
 export async function registerFetchTask() {
-  TaskManager.defineTask(FETCH_TASKNAME, () => {
-    try {
-      var ts = Math. round((new Date()). getTime() / 1000);
-      console.log(`backgroundTask():[${Platform.OS}][${ts}][${background_exec_count}] task function is running....`)
-      background_exec_count += 1;
-      const receivedNewData = true;// do your background fetch here
-      return receivedNewData ? BackgroundFetch.Result.NewData : BackgroundFetch.Result.NoData;
-    } catch (error) {
-      console.log("backgroundTask():ask function run error:",error);
-      return BackgroundFetch.Result.Failed;
-    }
-  });
+  
 
   const status = await BackgroundFetch.getStatusAsync();
   console.log("registerFetchTask(): status:", status);
@@ -38,11 +39,11 @@ export async function registerFetchTask() {
       const options = Platform.OS =='android' ? {
         minimumInterval: INTERVAL, // in seconds
         startOnBoot: true,
-        stopOnTerminate: true,
+        stopOnTerminate: false,
       } : {
         minimumInterval: INTERVAL, // in seconds
         startOnBoot: true,
-        stopOnTerminate: true,
+        stopOnTerminate: false,
       };
 
       console.log("registerFetchTask():Register task:", FETCH_TASKNAME);
