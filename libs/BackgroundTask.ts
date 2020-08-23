@@ -3,6 +3,7 @@ import * as TaskManager from 'expo-task-manager';
 import { Platform } from 'react-native';
 import * as Notifications from 'expo-notifications';
 import axios from 'axios';
+import "isomorphic-fetch";
 
 const FETCH_TASKNAME = 'test_task'
 const INTERVAL = 10
@@ -34,16 +35,35 @@ export async function request_server(flag: String, ts: number, count: number) {
       // mode: "cors",
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json;charset=UTF-8',
       },
-      data: JSON.stringify(param)
+      // data: JSON.stringify(param)
     });
-  
     return response;
+    // const response = await fetch(
+    //   req_url,
+    //   {
+    //     method: 'GET',
+    //     // mode: "cors",
+    //     headers: {
+    //       'Accept': 'application/json',
+    //       'Content-Type': 'application/json;charset=UTF-8',
+    //     },
+    //     body: JSON.stringify(param),
+    //   },
+    // );
+    // return await response.json();
+    
   } catch (error) {
-    console.log('request_server():error.request:', error.request);
-    console.log('request_server():error.response.status):', error.response.status);
-    console.log('request_server():error.request.message:', error.message);
+    if (error.request ) {
+      console.log('request_server():error.request:', error.request);
+    }
+    
+    if (error.message) {
+      console.log('request_server():error.request.message:', error.message);
+    }
+    // console.log('request_server():error.response.status):', error.response.status);
+    console.log('request_server():error:', error);
   }
 
   
@@ -53,7 +73,7 @@ TaskManager.defineTask(FETCH_TASKNAME, async () => {
     var ts = Math.round((new Date()).getTime() / 1000);
     console.log(`backgroundTask():[${Platform.OS}][${ts}][${background_exec_count}] task function is running....`)
     background_exec_count += 1;
-    const receivedNewData = true;// do your background fetch here
+    const receivedNewData = false;// do your background fetch here
 
     console.log("backgroundTask():request is sent.");
     let resp = await request_server('backgroundTask', ts, background_exec_count);
