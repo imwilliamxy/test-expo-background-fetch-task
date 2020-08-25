@@ -31,6 +31,7 @@
     "expo-status-bar": "^1.0.2",
     "expo-task-manager": "~8.3.0",
     "expo-web-browser": "~8.3.1",
+    "node-forge": "^0.9.1",
     "react": "~16.11.0",
     "react-dom": "~16.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
@@ -48,6 +49,7 @@
     "@babel/core": "^7.8.6",
     "@types/react": "~16.9.23",
     "@types/react-native": "~0.62.13",
+    "@types/react-redux": "^7.1.9",
     "babel-preset-expo": "~8.1.0",
     "jest-expo": "~38.0.0",
     "typescript": "~3.9.5"

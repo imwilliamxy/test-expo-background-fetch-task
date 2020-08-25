@@ -6,7 +6,8 @@ import { all, fork } from 'redux-saga/effects';
 
 import {
   watchStartGenerateKeypair,
-  // watchStartForumAuth,
+  watchStartForumAuth,
+  watchStartGetForumInfo,
   // watchStartGetForumInfo,
 } from './forumSagas';
 
@@ -15,7 +16,7 @@ export default function* rootSaga() {
   yield all([
     // forum
     fork(watchStartGenerateKeypair),
-    // fork(watchStartForumAuth),
-    // fork(watchStartGetForumInfo),
+    fork(watchStartForumAuth),
+    fork(watchStartGetForumInfo),
   ]);
 }

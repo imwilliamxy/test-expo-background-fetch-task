@@ -1,16 +1,31 @@
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ColorSchemeName } from 'react-native';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 
 import NotFoundScreen from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 
+import {
+  startGenerateForumKeypairAction,
+  getForumInfoAction,
+} from '../actions/forumActions';
+
 // If you are not familiar with React Navigation, we recommend going through the
 // "Fundamentals" guide: https://reactnavigation.org/docs/getting-started
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
+  const dispatch = useDispatch();
+  const store = useStore();
+  const foruminfo = useSelector(state => state.foruminfo);
+  useEffect(() => {
+    console.log('Navigation():useEffect():create keypair');
+    dispatch(startGenerateForumKeypairAction());
+    dispatch(getForumInfoAction());
+  }, []);
+
   return (
     <NavigationContainer
       linking={LinkingConfiguration}

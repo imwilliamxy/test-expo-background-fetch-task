@@ -19,7 +19,6 @@ import {
 } from '../actions/actionTypes';
 
 const initialState = {
-  url: null,
   oneTimePassword: '',
   authToken: '',
   public_key: '',

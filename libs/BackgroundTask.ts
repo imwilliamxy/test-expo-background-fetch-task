@@ -5,8 +5,8 @@ import * as Notifications from 'expo-notifications';
 import axios from 'axios';
 import "isomorphic-fetch";
 
-const FETCH_TASKNAME = 'test_task'
-const INTERVAL = 10
+const FETCH_TASKNAME = 'test_task';
+const INTERVAL = 15;
 
 // function runBackgroundSaga() {
 //   console.log('task function is running');
@@ -40,20 +40,6 @@ export async function request_server(flag: String, ts: number, count: number) {
       // data: JSON.stringify(param)
     });
     return response;
-    // const response = await fetch(
-    //   req_url,
-    //   {
-    //     method: 'GET',
-    //     // mode: "cors",
-    //     headers: {
-    //       'Accept': 'application/json',
-    //       'Content-Type': 'application/json;charset=UTF-8',
-    //     },
-    //     body: JSON.stringify(param),
-    //   },
-    // );
-    // return await response.json();
-    
   } catch (error) {
     if (error.request ) {
       console.log('request_server():error.request:', error.request);
