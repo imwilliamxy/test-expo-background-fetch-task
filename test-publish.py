@@ -24,6 +24,7 @@ def getBuildCount(line):
 
 
 if __name__ == "__main__":
+    # print(getBuildCount('const BUILD_COUNT = 28290;'))
     print ("Start update build count in constants/Constants.ts")
     with open('constants/Constants.ts') as f:
         lines = f.readlines()
@@ -32,11 +33,11 @@ if __name__ == "__main__":
     with open('constants/Constants.ts', 'w') as f:
         for line in lines:
             new_line = None
-            if 'const RELEASE_STRING =' in line:
+            if 'const BUILD_COUNT = ' in line:
                 # print("found build count const")
                 build_count = getBuildCount(line) + 1
                 # print(build_count)
-                new_line = 'const RELEASE_STRING = {};\n'.format(build_count)
+                new_line = 'const BUILD_COUNT = {};\n'.format(build_count)
                 print(new_line)
                 f.write(new_line)
             else:
@@ -60,9 +61,9 @@ if __name__ == "__main__":
     #     f.close()
 
 
-    print ("Start publish app to testing channel")
-    subprocess.call(['expo-cli', 'ph'])
-    subprocess.call(['expo-cli', 'w'])
-    subprocess.call(['expo-cli', 'publish', '--release-channel', 'testing'])
-    subprocess.call(['expo-cli', 'ph'])
-    print ("Publish to testing channel finished.")
+    # print ("Start publish app to testing channel")
+    # subprocess.call(['expo-cli', 'ph'])
+    # subprocess.call(['expo-cli', 'w'])
+    # subprocess.call(['expo-cli', 'publish', '--release-channel', 'testing'])
+    # subprocess.call(['expo-cli', 'ph'])
+    # print ("Publish to testing channel finished.")
