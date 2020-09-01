@@ -39,7 +39,7 @@
             "organization": "spin-zero-limited",
             "project": "react-native-uscreditcard-app",
             "authToken": "52ac1ad2d932469ca450c04ad60cb7e2211bc12dd6774143935807feeb27dc7a",
-            "release":"release@28280"
+            "release":"test-background-fetch-app@28291"
           }
         }
       ]

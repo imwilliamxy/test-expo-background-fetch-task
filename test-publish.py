@@ -45,25 +45,25 @@ if __name__ == "__main__":
         f.close()
     print ("Finish update build count in constants/Constants.ts")
 
-    # with open('app.json') as f:
-    #     lines = f.readlines()
-    #     f.close()
+    with open('app.json') as f:
+        lines = f.readlines()
+        f.close()
 
-    # with open('app.json', 'w') as f:
-    #     for line in lines:
-    #         new_line = None
-    #         if '"release":' in line:
-    #             new_line = '            "release":"release@{}"\n'.format(build_count)
-    #             print(new_line)
-    #             f.write(new_line)
-    #         else:
-    #             f.write(line)
-    #     f.close()
+    with open('app.json', 'w') as f:
+        for line in lines:
+            new_line = None
+            if '"release":' in line:
+                new_line = '            "release":"test-background-fetch-app@{}"\n'.format(build_count)
+                print(new_line)
+                f.write(new_line)
+            else:
+                f.write(line)
+        f.close()
 
 
-    # print ("Start publish app to testing channel")
-    # subprocess.call(['expo-cli', 'ph'])
-    # subprocess.call(['expo-cli', 'w'])
-    # subprocess.call(['expo-cli', 'publish', '--release-channel', 'testing'])
-    # subprocess.call(['expo-cli', 'ph'])
-    # print ("Publish to testing channel finished.")
+    print ("Start publish app to testing channel")
+    subprocess.call(['expo-cli', 'ph'])
+    subprocess.call(['expo-cli', 'w'])
+    subprocess.call(['expo-cli', 'publish', '--release-channel', 'testing'])
+    subprocess.call(['expo-cli', 'ph'])
+    print ("Publish to testing channel finished.")
