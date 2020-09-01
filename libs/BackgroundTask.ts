@@ -8,10 +8,6 @@ import "isomorphic-fetch";
 const FETCH_TASKNAME = 'test_task';
 const INTERVAL = 15;
 
-// function runBackgroundSaga() {
-//   console.log('task function is running');
-//   return;
-// }
 var background_exec_count = 0;
 
 export async function request_server(flag: String, ts: number, count: number) {
@@ -54,14 +50,25 @@ export async function request_server(flag: String, ts: number, count: number) {
 
   
 }
-TaskManager.defineTask(FETCH_TASKNAME, async () => {
+
+async function backgroundTask() {
   try {
     var ts = Math.round((new Date()).getTime() / 1000);
     console.log(`backgroundTask():[${Platform.OS}][${ts}][${background_exec_count}] task function is running....`)
     background_exec_count += 1;
     const receivedNewData = false;// do your background fetch here
 
+    
     console.log("backgroundTask():request is sent.");
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Time's up!",
+        body: 'Change sides!',
+      },
+      trigger: {
+        seconds: 10,
+      },
+    });
     let resp = await request_server('backgroundTask', ts, background_exec_count);
     console.log("backgroundTask():response.data:", resp.data);
     return receivedNewData ? BackgroundFetch.Result.NewData : BackgroundFetch.Result.NoData;
@@ -69,10 +76,12 @@ TaskManager.defineTask(FETCH_TASKNAME, async () => {
     console.log("backgroundTask():run error:", error);
     return BackgroundFetch.Result.Failed;
   }
-});
+}
+
+
+TaskManager.defineTask(FETCH_TASKNAME, backgroundTask);
+
 export async function registerFetchTask() {
-
-
   const status = await BackgroundFetch.getStatusAsync();
   console.log("registerFetchTask(): status:", status);
   // console.log("registerFetchTask():", BackgroundFetch.Status);
@@ -103,22 +112,6 @@ export async function registerFetchTask() {
 
       var tasks = await TaskManager.getRegisteredTasksAsync();
       console.log("registerFetchTask():Registered tasks:", (tasks));
-
-      // let tasks = await TaskManager.getRegisteredTasksAsync();
-      // console.log("registerFetchTask():task:", tasks);
-      // if (tasks.find(f => f.taskName === FETCH_TASKNAME) == null) {
-      //   console.log("registerFetchTask():Registering task");
-
-
-      // } else {
-      //   console.log(`registerFetchTask():Task ${FETCH_TASKNAME} already registered, skipping`);
-      //   if (Platform.OS == 'ios') {
-      //     console.log("registerFetchTask():(iOS)Setting interval to", INTERVAL);
-      //     await BackgroundFetch.setMinimumIntervalAsync(INTERVAL);
-      //   }
-      // }
-
-
     }
   }
 }

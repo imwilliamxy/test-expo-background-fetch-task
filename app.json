@@ -19,6 +19,7 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.williamxy.test-expo-background-fetch-task",
       "supportsTablet": true,
       "infoPlist": {
         "UIBackgroundModes": [
@@ -29,6 +30,19 @@
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
+    },
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "spin-zero-limited",
+            "project": "react-native-uscreditcard-app",
+            "authToken": "52ac1ad2d932469ca450c04ad60cb7e2211bc12dd6774143935807feeb27dc7a",
+            "release":"release@28280"
+          }
+        }
+      ]
     }
   }
 }
