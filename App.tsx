@@ -18,7 +18,7 @@ import { persistor } from './store';
 import { RELEASE_STRING } from './constants/Constants';
 
 Sentry.init({
-  dsn: 'https://38daa1b103dc46d8b836e9c3d3d8ed65@o177318.ingest.sentry.io/1262694',
+  dsn: 'https://6b092c1ba93a4b789448cf2ffa85f6c7@o177318.ingest.sentry.io/5414179',
   enableInExpoDevelopment: true,
   debug: true,
   release: RELEASE_STRING,
