@@ -24,6 +24,7 @@ Sentry.init({
   release: RELEASE_STRING,
 });
 
+Sentry.captureMessage("after Sentry inited.");
 
 registerFetchTask();
 
